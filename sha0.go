@@ -10,7 +10,7 @@ import (
 
 // CalculateSHA1 returns the SHA1 checksum of the input
 // accepts a max 2^64 - 1 bits array length
-func CalculateSHA1(input []byte) string {
+func CalculateSHA0(input []byte) string {
 	const chunkSize = 64
 	H := []uint32{0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0}
 	K := []uint32{0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC, 0xCA62C1D6}
@@ -51,7 +51,7 @@ func CalculateSHA1(input []byte) string {
 		// w[i] = (w[i-3] xor w[i-8] xor w[i-14] xor w[i-16]) leftrotate 1
 		// Bitwise right shift
 		for j := 16; j < 80; j++ {
-			chunks[i][j] = rotateLeft(chunks[i][j-3]^chunks[i][j-8]^chunks[i][j-14]^chunks[i][j-16], 1)
+			chunks[i][j] = chunks[i][j-3]^chunks[i][j-8]^chunks[i][j-14]^chunks[i][j-16]
 		}
 
 		// Initialize hash value for this chunk
